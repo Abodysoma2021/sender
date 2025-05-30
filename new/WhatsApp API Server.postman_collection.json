@@ -1,0 +1,488 @@
+{
+	"info": {
+		"_postman_id": "e142b57c-9950-4bd2-b294-53f71be701a4",
+		"name": "WhatsApp API Server",
+		"description": "A collection for interacting with the WhatsApp Web.js API server. Includes authentication, messaging, status checks, and client management endpoints.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22917986",
+		"_collection_link": "https://sekka-team.postman.co/workspace/Data-Link-Workspace~30fffb2e-0d62-4261-91b9-eb71132c2621/collection/22917986-e142b57c-9950-4bd2-b294-53f71be701a4?action=share&source=collection_link&creator=22917986"
+	},
+	"item": [
+		{
+			"name": "Status & Authentication",
+			"item": [
+				{
+					"name": "Get QR Code",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/qr-code",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"qr-code"
+							]
+						},
+						"description": "Gets the QR code needed to authenticate with WhatsApp Web. This endpoint does not require API key authentication."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Client Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/status",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"status"
+							]
+						},
+						"description": "Gets the current status of the WhatsApp client and webhook configuration."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Client Info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/client-info",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"client-info"
+							]
+						},
+						"description": "Gets detailed information about the authenticated WhatsApp client if available."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for checking status and managing authentication with WhatsApp."
+		},
+		{
+			"name": "Messaging",
+			"item": [
+				{
+					"name": "Send Text Message",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number\": \"5511999999999\",\n    \"message\": \"Hello from Postman!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/send-message",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"send-message"
+							]
+						},
+						"description": "Sends a text message to a WhatsApp contact or group."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Media",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "number",
+									"value": "966547305033",
+									"type": "text"
+								},
+								{
+									"key": "caption",
+									"value": "يا باشا انه العصر الجديد",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/abodysomamac/Downloads/logo(1).png"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/send-media",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"send-media"
+							]
+						},
+						"description": "Sends a media file (image, video, document, audio) to a WhatsApp contact or group."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Location",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number\": \"966547305033\",\n    \"latitude\": 37.7749,\n    \"longitude\": -122.4194,\n    \"name\": \"الجخنووووون\",\n    \"address\": \"لوكيشن من الموت يا مكنة\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/send-location",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"send-location"
+							]
+						},
+						"description": "Sends a location message to a WhatsApp contact or group."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Buttons",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number\": \"5511999999999\",\n    \"body\": \"Please select an option:\",\n    \"buttons\": [\n        {\"id\": \"btn1\", \"body\": \"Option 1\"},\n        {\"id\": \"btn2\", \"body\": \"Option 2\"},\n        {\"id\": \"btn3\", \"body\": \"Option 3\"}\n    ],\n    \"title\": \"Select Option\",\n    \"footer\": \"Company Name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/send-buttons",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"send-buttons"
+							]
+						},
+						"description": "Sends a message with interactive buttons to a WhatsApp contact or group."
+					},
+					"response": []
+				},
+				{
+					"name": "Send List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number\": \"5511999999999\",\n    \"body\": \"Please select an option from the list:\",\n    \"buttonText\": \"View Options\",\n    \"sections\": [\n        {\n            \"title\": \"Section 1\",\n            \"rows\": [\n                {\"id\": \"row1\", \"title\": \"Item 1\", \"description\": \"Description for Item 1\"},\n                {\"id\": \"row2\", \"title\": \"Item 2\", \"description\": \"Description for Item 2\"}\n            ]\n        },\n        {\n            \"title\": \"Section 2\",\n            \"rows\": [\n                {\"id\": \"row3\", \"title\": \"Item 3\", \"description\": \"Description for Item 3\"},\n                {\"id\": \"row4\", \"title\": \"Item 4\", \"description\": \"Description for Item 4\"}\n            ]\n        }\n    ],\n    \"title\": \"Options List\",\n    \"footer\": \"Company Name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/send-list",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"send-list"
+							]
+						},
+						"description": "Sends a message with an interactive list to a WhatsApp contact or group."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Chats",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/chats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chats"
+							]
+						},
+						"description": "Gets a list of all chats (individual contacts and groups)."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for sending different types of messages and getting chat information."
+		},
+		{
+			"name": "Webhook Management",
+			"item": [
+				{
+					"name": "Set Webhook URL",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"url\": \"https://your-webhook-endpoint.com/webhook\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/set-webhook",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"set-webhook"
+							]
+						},
+						"description": "Sets the URL where webhook events will be sent."
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Webhook URL",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/remove-webhook",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"remove-webhook"
+							]
+						},
+						"description": "Removes the currently configured webhook URL."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for managing webhook configurations for event notifications."
+		},
+		{
+			"name": "Client Management",
+			"item": [
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"logout"
+							]
+						},
+						"description": "Logs out the WhatsApp client, clearing all session data. Requires QR code scan on next initialization."
+					},
+					"response": []
+				},
+				{
+					"name": "Disconnect",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/disconnect",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"disconnect"
+							]
+						},
+						"description": "Disconnects the WhatsApp client but preserves session data for faster reconnection."
+					},
+					"response": []
+				},
+				{
+					"name": "Reconnect",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/reconnect",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reconnect"
+							]
+						},
+						"description": "Attempts to reconnect the WhatsApp client if it was previously disconnected."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for managing the WhatsApp client connection."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://localhost:3004",
+			"type": "string"
+		},
+		{
+			"key": "api_key",
+			"value": "your-api-key-here",
+			"type": "string"
+		}
+	]
+}
