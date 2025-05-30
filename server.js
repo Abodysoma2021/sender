@@ -1,7 +1,7 @@
 require('dotenv').config(); // Load .env file variables
 const express = require('express');
 const https = require('https');
-// const http = require('http'); // Keep commented unless needed
+const http = require('http'); // Keep commented unless needed
 const fs = require('fs');
 const path = require('path');
 const { Client, LocalAuth, MessageMedia, Location, Buttons, List } = require('whatsapp-web.js');
@@ -586,7 +586,15 @@ app.post('/reconnect', async (req, res) => {
 
 
 // --- Start Server ---
-const server = https.createServer(sslOptions, app);
+// const server = https.createServer(sslOptions, app);
+
+// Optional HTTP redirect (uncomment if needed, less secure)
+const server = http.createServer((req, res) => {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+}).listen(httpPort, () => {
+    console.log(`HTTP server running on port ${httpPort}, redirecting to HTTPS`);
+});
 
 server.listen(port, () => {
     console.log(`HTTPS server running securely on https://localhost:${port}`);
@@ -601,13 +609,7 @@ server.listen(port, () => {
     });
 });
 
-// Optional HTTP redirect (uncomment if needed, less secure)
-// http.createServer((req, res) => {
-//     res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-//     res.end();
-// }).listen(httpPort, () => {
-//     console.log(`HTTP server running on port ${httpPort}, redirecting to HTTPS`);
-// });
+
 
 
 // --- Graceful Shutdown ---
